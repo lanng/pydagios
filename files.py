@@ -2,10 +2,11 @@ import os
 import shutil
 
 # Declarando o caminho da pasta para o script enviar os PDFs gerados.
-ESTRELA = os.getenv('ESTRELA')
-TERUO = os.getenv('TERUO')
-MARANI = os.getenv('MARANI')
-FORTI = os.getenv('FORTI')
+ESTRELA = r"C:\Users\Victor\OneDrive\Documentos\AUTO SOCORRO\PEDAGIOS\ESTRELA"
+TERUO = r"C:\Users\Victor\OneDrive\Documentos\AUTO SOCORRO\PEDAGIOS\TERUO"
+MARANI = r"C:\Users\Victor\OneDrive\Documentos\AUTO SOCORRO\PEDAGIOS\MARANI"
+FORTI = r"C:\Users\Victor\OneDrive\Documentos\AUTO SOCORRO\PEDAGIOS\FORTI"
+ERROR = "ERRO AO MOVER O ARQUIVO!"
 
 pasta = ".\PDFs"
 
@@ -23,23 +24,23 @@ for files in os.walk(pasta):
             try:
                 shutil.move(source, TERUO)
             except:
-                print("Erro ao mover arquivo")
+                print(ERROR)
         elif file[0] == 'E':
             try:
                 shutil.move(source, ESTRELA)
             except:
-                print("Erro ao mover arquivo")
+                print(ERROR)
         elif file[0] == 'M':
             try:
                 shutil.move(source, MARANI)
             except:
                 print(shutil.Error.message)
-                print("Erro ao mover arquivo")
+                print(ERROR)
         elif file[0] == 'F':
             try:
                 shutil.move(source, FORTI)
             except:
-                print("Erro ao mover arquivo")
+                print(ERROR)
         else:
             print("Arquivo com nome incorreto: ")
             print(file)

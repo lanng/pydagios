@@ -3,6 +3,7 @@ import os
 import pyautogui as auto
 import easygui as eg
 from PIL import Image
+from Calculator import Calculator
 
 # Dimesões da area do print
 TOP = 765
@@ -10,6 +11,8 @@ LEFT = 300
 WIDTH = 390
 HEIGHT = 600
 reply = ""
+value_text = ""
+values = []
 
 while reply != "Nao":
     imageList = []
@@ -27,15 +30,19 @@ while reply != "Nao":
 
     auto.alert(f'Preparando os Docs - Quantidade de pedagios: {counter}')
 
+    values.clear()
     for i in range(1, counter + 1):
         im = Image.open(f'ped{i}.png')
         im = im.convert('L')
         imageList.append(im)
+        values.append(Calculator.extract_value(f'ped{i}.png'))
+
+    value_text = Calculator.sum_values(values)
 
     # colocando as imagens armazenadas no pdf, retirando o prieiro elemento para não se repetir
-    imageList[0].save(f'{service_order}.pdf', save_all=True,
+    imageList[0].save(f'{service_order} - R$ {value_text}.pdf', save_all=True,
                       resolution=140, append_images=imageList[1:])
-    auto.alert('PDF gerado com sucesso')
+    auto.alert('PDF gerado com sucesso - R$ ' + str(value_text))
     reply = eg.buttonbox(msg='Deseja gerar outro PDF?', choices=('Sim', 'Nao'))
 
 auto.alert('Gerador de PDF finalizado - Movendo arquivos...')
