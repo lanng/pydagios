@@ -1,11 +1,11 @@
 import os
 import shutil
 
-# Declarando o caminho da pasta para o script enviar os PDFs gerados.
-ESTRELA = r"C:\Users\Victor\OneDrive\Documentos\AUTO SOCORRO\PEDAGIOS\ESTRELA"
-TERUO = r"C:\Users\Victor\OneDrive\Documentos\AUTO SOCORRO\PEDAGIOS\TERUO"
-MARANI = r"C:\Users\Victor\OneDrive\Documentos\AUTO SOCORRO\PEDAGIOS\MARANI"
-FORTI = r"C:\Users\Victor\OneDrive\Documentos\AUTO SOCORRO\PEDAGIOS\FORTI"
+# Declarando o caminho da pasta para o script enviar os PDFs gerados. Para usar crie o .env e coloque o path conforme seu sistema
+ESTRELA = os.getenv("ESTRELA")
+TERUO = os.getenv("TERUO")
+MARANI = os.getenv("MARANI")
+FORTI = os.getenv("FORTI")
 ERROR = "ERRO AO MOVER O ARQUIVO!"
 
 pasta = ".\PDFs"
