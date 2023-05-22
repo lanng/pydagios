@@ -50,4 +50,5 @@ while reply != "Nao":
 
 auto.alert('Gerador de PDF finalizado - Movendo arquivos...')
 Files.move_files()
-# os.system('python files.py')
+# exclude png files for clean directory at the end.
+Files.exclude_png_files()

@@ -69,3 +69,18 @@ class Files:
                 else:
                     print("Arquivo com nome incorreto: ")
                     print(file)
+
+    @staticmethod
+    def exclude_png_files():
+        print("Excluding PNG files...")
+
+        for file in os.listdir():
+            if file.lower().endswith(".png"):
+                path = os.path.join(os.getcwd(), file)
+
+                try:
+                    os.remove(path)
+                    print(f"File deleted: {file}")
+                except Exception as e:
+                    print(f"Error deleting file: {file}")
+                    print(f"Error: {str(e)}")
