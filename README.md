@@ -2,7 +2,7 @@
 
 This repository contains a code solution for automating the generation of tolls receipts in the form of PDF documents. The code captures screenshots of a specific area on the screen, extracts the toll values using OCR (Optical Character Recognition), and generates PDF files for each receipt.
 
-The scripts take screenshots of a mobile phone witch have be in your screen, I personly recommend the [`scrpy`](https://github.com/Genymobile/scrcpy) to controll the smarthphone on computer and take the screenshots.
+The scripts take screenshots of a mobile phone witch have be in your screen, I personly recommend the [`scrcpy`](https://github.com/Genymobile/scrcpy) to controll the smarthphone on computer and take the screenshots.
 
 ## Features
 
