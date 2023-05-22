@@ -2,8 +2,10 @@ import keyboard
 import os
 import pyautogui as auto
 import easygui as eg
+import shutil
 from PIL import Image
 from Calculator import Calculator
+from Files import Files
 
 # Dimesões da area do print
 TOP = 765
@@ -45,5 +47,7 @@ while reply != "Nao":
     auto.alert('PDF gerado com sucesso - R$ ' + str(value_text))
     reply = eg.buttonbox(msg='Deseja gerar outro PDF?', choices=('Sim', 'Nao'))
 
+
 auto.alert('Gerador de PDF finalizado - Movendo arquivos...')
-os.system('python files.py')
+Files.move_files()
+# os.system('python files.py')

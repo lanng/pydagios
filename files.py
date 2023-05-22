@@ -1,46 +1,71 @@
 import os
 import shutil
 
-# Declarando o caminho da pasta para o script enviar os PDFs gerados. Para usar crie o .env e coloque o path conforme seu sistema
-ESTRELA = os.getenv("ESTRELA")
-TERUO = os.getenv("TERUO")
-MARANI = os.getenv("MARANI")
-FORTI = os.getenv("FORTI")
-ERROR = "ERRO AO MOVER O ARQUIVO!"
 
-pasta = ".\PDFs"
+class Files:
+    ESTRELA = r"C:\Users\Victor\OneDrive\Documentos\AUTO SOCORRO\PEDAGIOS\ESTRELA"
+    TERUO = r"C:\Users\Victor\OneDrive\Documentos\AUTO SOCORRO\PEDAGIOS\TERUO"
+    MARANI = r"C:\Users\Victor\OneDrive\Documentos\AUTO SOCORRO\PEDAGIOS\MARANI"
+    FORTI = r"C:\Users\Victor\OneDrive\Documentos\AUTO SOCORRO\PEDAGIOS\FORTI"
+    ERROR = "ERRO AO MOVER O ARQUIVO!"
+    PDFS_DIRECTORY = ".\PDFs"
 
-# Verifica se a pasta contem arquvios, se não, sai do script
-if len(os.listdir(pasta)) == 0:
-    print("Nenhum arquivo encontrado")
-    exit()
+    @staticmethod
+    def move_pdf_files():
+        # Create the destination directory if it doesn't exist
+        os.makedirs(Files.PDFS_DIRECTORY, exist_ok=True)
 
-print("Gerando PDFs...")
+        print("Moving PDF files...")
 
-for files in os.walk(pasta):
-    for file in files[2]:
-        source = os.path.join(pasta, file)
-        if file[0] == 'T':
-            try:
-                shutil.move(source, TERUO)
-            except:
-                print(ERROR)
-        elif file[0] == 'E':
-            try:
-                shutil.move(source, ESTRELA)
-            except:
-                print(ERROR)
-        elif file[0] == 'M':
-            try:
-                shutil.move(source, MARANI)
-            except:
-                print(shutil.Error.message)
-                print(ERROR)
-        elif file[0] == 'F':
-            try:
-                shutil.move(source, FORTI)
-            except:
-                print(ERROR)
-        else:
-            print("Arquivo com nome incorreto: ")
-            print(file)
+        for file in os.listdir():
+            if file.lower().endswith(".pdf"):
+                source = os.path.join(os.getcwd(), file)
+                destination = os.path.join(
+                    os.getcwd(), Files.PDFS_DIRECTORY, file)
+
+                try:
+                    shutil.move(source, destination)
+                    print(f"File moved: {file}")
+                except Exception as e:
+                    print(f"Error moving file: {file}")
+                    print(f"Error: {str(e)}")
+
+    @staticmethod
+    def move_files():
+        # Call method to move the pdf files to the "/PDFs"
+        Files.move_pdf_files()
+        path = Files.PDFS_DIRECTORY
+
+        # Verifica se a pasta contem arquivos; se não, sai do script
+        if len(os.listdir(path)) == 0:
+            print("Nenhum arquivo encontrado")
+            return
+
+        print("Gerando PDFs...")
+
+        for files in os.walk(path):
+            for file in files[2]:
+                source = os.path.join(path, file)
+                if file[0].upper() == 'T':
+                    try:
+                        shutil.move(source, Files.TERUO)
+                    except:
+                        print(Files.ERROR)
+                elif file[0].upper() == 'E':
+                    try:
+                        shutil.move(source, Files.ESTRELA)
+                    except:
+                        print(Files.ERROR)
+                elif file[0].upper() == 'M':
+                    try:
+                        shutil.move(source, Files.MARANI)
+                    except:
+                        print(Files.ERROR)
+                elif file[0].upper() == 'F':
+                    try:
+                        shutil.move(source, Files.FORTI)
+                    except:
+                        print(Files.ERROR)
+                else:
+                    print("Arquivo com nome incorreto: ")
+                    print(file)
