@@ -14,10 +14,10 @@ WIDTH = 390
 HEIGHT = 600
 reply = ""
 value_text = ""
-values = []
 
 while reply != "Nao":
     imageList = []
+    values = []
     auto.PAUSE = 2
     service_order = eg.enterbox(
         'Informe o número do serviço e o identificador:')
@@ -29,15 +29,14 @@ while reply != "Nao":
             counter = counter + 1
             im.save(f'ped{counter}.png')
             auto.alert(f'IMAGEM SALVA - {counter}')
+            values.append(Calculator.extract_value(f'ped{counter}.png'))
 
     auto.alert(f'Preparando os Docs - Quantidade de pedagios: {counter}')
 
-    values.clear()
     for i in range(1, counter + 1):
         im = Image.open(f'ped{i}.png')
         im = im.convert('L')
         imageList.append(im)
-        values.append(Calculator.extract_value(f'ped{i}.png'))
 
     value_text = Calculator.sum_values(values)
 
