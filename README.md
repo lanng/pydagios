@@ -80,6 +80,7 @@ Contributions are welcome! If you find any issues or have suggestions for improv
 ## Disclaimer
 
 Please note that this software is provided as-is, without any warranty. Use it at your own risk.
+Use Google Cloud SDK Shell to configure credentials for Google Cloud Vision. More information can be found at: [`Google Auth Doc`](https://cloud.google.com/vision/docs/authentication).
 
 ---
 
