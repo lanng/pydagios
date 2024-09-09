@@ -7,11 +7,17 @@ from PIL import Image
 from Calculator import Calculator
 from Files import Files
 
-# Dimesões da area do print
-TOP = 765
-LEFT = 300
-WIDTH = 390
-HEIGHT = 600
+# Dimesões da area do print - Redmi note 10 pro
+# LEFT = 765
+# TOP = 300
+# WIDTH = 390
+# HEIGHT = 600
+
+# S23
+LEFT = 750
+TOP = 300
+WIDTH = 415
+HEIGHT = 620
 reply = ""
 value_text = ""
 
@@ -25,7 +31,7 @@ while reply != "Nao":
     counter = 0
     while keyboard.is_pressed('end') == False:
         if keyboard.is_pressed('insert'):
-            im = auto.screenshot(region=(TOP, LEFT, WIDTH, HEIGHT))
+            im = auto.screenshot(region=(LEFT, TOP, WIDTH, HEIGHT))
             counter = counter + 1
             im.save(f'ped{counter}.png')
             auto.alert(f'IMAGEM SALVA - {counter}')

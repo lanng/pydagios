@@ -3,10 +3,10 @@ import shutil
 
 
 class Files:
-    ESTRELA = r"C:\Users\Victor\OneDrive\Documentos\AUTO SOCORRO\PEDAGIOS\ESTRELA"
-    TERUO = r"C:\Users\Victor\OneDrive\Documentos\AUTO SOCORRO\PEDAGIOS\TERUO"
-    MARANI = r"C:\Users\Victor\OneDrive\Documentos\AUTO SOCORRO\PEDAGIOS\MARANI"
-    FORTI = r"C:\Users\Victor\OneDrive\Documentos\AUTO SOCORRO\PEDAGIOS\FORTI"
+    ESTRELA = r"C:\Users\victo\OneDrive\Documentos\AUTO SOCORRO\PEDAGIOS\ESTRELA"
+    TERUO = r"C:\Users\victo\OneDrive\Documentos\AUTO SOCORRO\PEDAGIOS\TERUO"
+    MARANI = r"C:\Users\victo\OneDrive\Documentos\AUTO SOCORRO\PEDAGIOS\MARANI"
+    FORTI = r"C:\Users\victo\OneDrive\Documentos\AUTO SOCORRO\PEDAGIOS\FORTI"
     ERROR = "ERRO AO MOVER O ARQUIVO!"
     PDFS_DIRECTORY = ".\PDFs"
 
