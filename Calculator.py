@@ -5,12 +5,12 @@ from google.cloud import vision
 import numpy as np
 
 
+client = vision.ImageAnnotatorClient()
 class Calculator:
     @staticmethod
     def extract_value(image_path):
         # TOP_LEFT = [110, 345]  # 112, 350 -- 158, 362
         # BOTTOM_RIGHT = [280, 407]  # 287, 412 - 259, 401
-        client = vision.ImageAnnotatorClient()
 
         image = Image.open(image_path)
         # Corta a área desejada da imagem
