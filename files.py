@@ -1,21 +1,30 @@
 import os
 import shutil
+import logging
+from dotenv import load_dotenv
 
 
 class Files:
-    ESTRELA = r"C:\Users\victo\OneDrive\Documentos\AUTO SOCORRO\PEDAGIOS\ESTRELA"
-    TERUO = r"C:\Users\victo\OneDrive\Documentos\AUTO SOCORRO\PEDAGIOS\TERUO"
-    MARANI = r"C:\Users\victo\OneDrive\Documentos\AUTO SOCORRO\PEDAGIOS\MARANI"
-    FORTI = r"C:\Users\victo\OneDrive\Documentos\AUTO SOCORRO\PEDAGIOS\FORTI"
-    ERROR = "ERRO AO MOVER O ARQUIVO!"
-    PDFS_DIRECTORY = ".\PDFs"
+    load_dotenv()
+    DESTINATIONS = {
+        "E": os.getenv("ESTRELA_DIR", r"./PDFs"),
+        "M": os.getenv("MARANI_DIR", r"./PDFs"),
+        "T": os.getenv("TERUO_DIR", r"./PDFs"),
+        "F": os.getenv("FORTI_DIR", r"./PDFs"),
+    }
+
+    PDFS_DIRECTORY = os.getenv("PDFS_DIR", ".\PDFs") 
+    ERROR_MESSAGE = "ERRO AO MOVER O ARQUIVO: {file}"
+
+    @staticmethod
+    def setup_logger():
+        logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
     @staticmethod
     def move_pdf_files():
         # Create the destination directory if it doesn't exist
         os.makedirs(Files.PDFS_DIRECTORY, exist_ok=True)
-
-        print("Moving PDF files...")
+        logging.info("moving PDF files to %s", Files.PDFS_DIRECTORY)
 
         for file in os.listdir():
             if file.lower().endswith(".pdf"):
@@ -25,54 +34,48 @@ class Files:
 
                 try:
                     shutil.move(source, destination)
-                    print(f"File moved: {file}")
+                    logging.info("File moved %s", file)
                 except Exception as e:
-                    print(f"Error moving file: {file}")
-                    print(f"Error: {str(e)}")
+                    logging.error(Files.ERROR_MESSAGE.format(file=file))
+                    logging.error("Errors details: %s", str(e))
 
     @staticmethod
     def move_files():
         # Call method to move the pdf files to the "/PDFs"
         Files.move_pdf_files()
-        path = Files.PDFS_DIRECTORY
+        pdf_path = Files.PDFS_DIRECTORY
 
         # Verifica se a pasta contem arquivos; se não, sai do script
-        if len(os.listdir(path)) == 0:
-            print("Nenhum arquivo encontrado")
+        if not os.listdir(pdf_path):
+            logging.info("No files found in %s", pdf_path)
             return
 
-        print("Gerando PDFs...")
+        logging.info("Processing files in %s", pdf_path)
 
-        for files in os.walk(path):
-            for file in files[2]:
-                source = os.path.join(path, file)
-                if file[0].upper() == 'T':
+        for root, _, files in os.walk(pdf_path):
+            for file in files:
+                source = os.path.join(root, file)
+                prefix = file[0].upper()
+                
+                #debug .env errors
+                logging.info("estrela: %s", Files.DESTINATIONS.get("E"))
+
+
+                destination_dir = Files.DESTINATIONS.get(prefix)
+                if destination_dir:
                     try:
-                        shutil.move(source, Files.TERUO)
-                    except:
-                        print(Files.ERROR)
-                elif file[0].upper() == 'E':
-                    try:
-                        shutil.move(source, Files.ESTRELA)
-                    except:
-                        print(Files.ERROR)
-                elif file[0].upper() == 'M':
-                    try:
-                        shutil.move(source, Files.MARANI)
-                    except:
-                        print(Files.ERROR)
-                elif file[0].upper() == 'F':
-                    try:
-                        shutil.move(source, Files.FORTI)
-                    except:
-                        print(Files.ERROR)
+                        os.makedirs(destination_dir, exist_ok=True)
+                        shutil.move(source, destination_dir)
+                        logging.info("Moved %s to %s", file, destination_dir)
+                    except Exception as e:
+                        logging.error(Files.ERROR_MESSAGE.format(file=file))
+                        logging.error("Error details: %s", str(e))
                 else:
-                    print("Arquivo com nome incorreto: ")
-                    print(file)
+                    logging.warning("File has an incorrect name or no matching directory: %s", file)
 
     @staticmethod
     def exclude_png_files():
-        print("Excluding PNG files...")
+        logging.info("Deleting PNG files...")
 
         for file in os.listdir():
             if file.lower().endswith(".png"):
@@ -80,7 +83,10 @@ class Files:
 
                 try:
                     os.remove(path)
-                    print(f"File deleted: {file}")
+                    logging.info("File deleted: %s", file)
                 except Exception as e:
-                    print(f"Error deleting file: {file}")
-                    print(f"Error: {str(e)}")
+                    logging.error("Error deleting file: %s", file)
+                    logging.error("Error details: %s", file)
+
+
+Files.setup_logger()

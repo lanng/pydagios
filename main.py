@@ -1,11 +1,10 @@
 import keyboard
-import os
 import pyautogui as auto
 import easygui as eg
-import shutil
 from PIL import Image
 from Calculator import Calculator
 from Files import Files
+import PdfEditor
 
 # Dimesões da area do print - Redmi note 10 pro
 # LEFT = 765
@@ -52,8 +51,11 @@ while reply != "Nao":
     auto.alert('PDF gerado com sucesso - R$ ' + str(value_text))
     reply = eg.buttonbox(msg='Deseja gerar outro PDF?', choices=('Sim', 'Nao'))
 
+# editing all the pdf files, writing each page with the service number
+PdfEditor.process_all_pdfs_in_directory()
 
 auto.alert('Gerador de PDF finalizado - Movendo arquivos...')
+
 Files.move_files()
 # exclude png files for clean directory at the end.
 Files.exclude_png_files()
